@@ -53,7 +53,7 @@ function initClientAndJoinChannel() {
 initClientAndJoinChannel();
 
 client.on("stream-published", function (evt) {
-	// addRemoteStreamMiniView(evt.stream)
+	 //addRemoteStreamMiniView(evt.stream);
     //  socket.emit("videouser", username);
 	console.log("Publish local stream successfully");
 });
@@ -92,18 +92,6 @@ client.on("stream-subscribed", function (evt) {
 // remove the remote-container when a user leaves the channel
 client.on("peer-leave", function (evt, username) {
 	var streamId = evt.stream.getId(); //get stream id
-	// if(remoteStreams[streamId] != undefined) {
-	//   remoteStreams[streamId].stop(); // stop playing the feed
-	//   delete remoteStreams[streamId]; // remove stream from list
-	// if (streamId == mainStreamId) {
-	//   var streamIds = Object.keys(remoteStreams);
-	//   var randomId = streamIds[Math.floor(Math.random()*streamIds.length)]; // select from the remaining streams
-	//   remoteStreams[randomId].stop(); // stop the stream's existing playback
-	//   var remoteContainerID = '#' + randomId + '_container';
-	//   $(remoteContainerID).empty().remove(); // remove the stream's miniView container
-	//   remoteStreams[randomId].play('full-screen-video'); // play the random stream as the main stream
-	//   mainStreamId = randomId; // set the new main remote stream
-	// } else {
 	console.log("user with username"+ username + "left the meeting");
 	var remoteContainerID = "#" + streamId + "_container";
 	$(remoteContainerID).empty().remove(); //
@@ -182,6 +170,16 @@ function createCameraStream(uid) {
 			localStreams.camera.stream = localStream; // keep track of the camera stream for later
 		},
 		function (err) {
+			document.getElementById("video-icon").innerHTML = "videocam_off";
+			document.getElementById("video-btn").classList.toggle("btn-danger");
+			document.getElementById("mic-icon").innerHTML = "mic_off";
+			document.getElementById("mic-btn").classList.toggle("btn-danger");
+			document.getElementById("screen-share-icon").innerHTML =
+				"cancel_presentation";
+			document
+				.getElementById("screen-share-btn")
+				.classList.toggle("btn-danger");
+			console.log("[ERROR] : getUserMedia failed", err);
 			console.log("[ERROR] : getUserMedia failed", err);
 		}
 	);
@@ -248,28 +246,7 @@ function initScreenShare(agoraAppId, channelName) {
 			$("#screen-share-btn").prop("disabled", false); // enable button
 		}
 	);
-	
-	// var token = generateToken();
-	screenClient.on("stream-published", function (evt) {
 
-		console.log("Publish screen stream successfully");
-		if( $('#full-screen-video').is(':empty') ) {
-		  $('#main-stats-btn').show();
-		  $('#main-stream-stats-btn').show();
-		} else {
-		  // move the current main stream to miniview
-		  remoteStreams[mainStreamId].stop(); // stop the main video stream playback
-		  client.setRemoteVideoStreamType(remoteStreams[mainStreamId], 1); // subscribe to the low stream
-		  addRemoteStreamMiniView(remoteStreams[mainStreamId]); // send the main video stream to a container
-		}
-		mainStreamId = localStreams.screen.id;
-		localStreams.screen.stream.play('full-screen-video');
-		addRemoteStreamMiniView(evt.stream);
-	});
-
-	screenClient.on("stopScreenSharing", function (evt) {
-		console.log("screen sharing stopped", err);
-	});
 }
 
 function stopScreenShare() {
@@ -285,6 +262,7 @@ function stopScreenShare() {
 			screenShareActive = false;
 			console.log("screen client leaves channel");
 			$("#screen-share-btn").prop("disabled", false); // enable button
+			localStreams.screen.stream.stop();
 			screenClient.unpublish(localStreams.screen.stream); // unpublish the screen client
 			localStreams.screen.stream.close(); // close the screen client stream
 			localStreams.screen.id = ""; // reset the screen id
@@ -328,16 +306,6 @@ function addRemoteStreamMiniView(remoteStream) {
 
 	Dish();
 
-	var containerId = "#" + streamId + "_container";
-	// $(containerId).dblclick(function() {
-	//   // play selected container as full screen - swap out current full screen stream
-	//   remoteStreams[mainStreamId].stop(); // stop the main video stream playback
-	//   addRemoteStreamMiniView(remoteStreams[mainStreamId]); // send the main video stream to a container
-	//   $(containerId).empty().remove(); // remove the stream's miniView container
-	//   remoteStreams[streamId].stop() // stop the container's video stream playback
-	//   remoteStreams[streamId].play('full-screen-video'); // play the remote stream as the full screen video
-	//   mainStreamId = streamId; // set the container stream id as the new main stream id
-	// });
 }
 
 function leaveChannel() {
@@ -363,6 +331,7 @@ function leaveChannel() {
 			// show the modal overlay to join
 			// $("#modalForm").modal("show");
 			Dish();
+			redirec();
 		},
 		function (err) {
 			console.log("client leave failed ", err); //error handling

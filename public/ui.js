@@ -16,16 +16,13 @@ function enableUiControls(localStream) {
     });
   
     $("#screen-share-btn").click(function () {
-      console.log(123);
       toggleScreenShareBtn(); // set screen share button icon
       $("#screen-share-btn").prop("disabled", true); // disable the button on click
-      console.log(screenShareActive)
       if(screenShareActive){
         stopScreenShare();
          document.getElementById("screen-share-icon").innerHTML =
                       "screen_share";
       } else {
-        console.log('chup')
         initScreenShare(agoraAppId, channelName);
             document.getElementById("screen-share-icon").innerHTML =
                           "stop_screen_share";
@@ -34,7 +31,7 @@ function enableUiControls(localStream) {
     });
   
     $("#exit-btn").click(function(){
-      console.log("leave channel");
+
       leaveChannel(); 
     });
   
@@ -44,29 +41,23 @@ function enableUiControls(localStream) {
       if (e.ctrlKey) {
         switch (e.key) {
                   case "m":
-                      console.log("squick toggle the mic");
                       toggleMic(localStream);
                       break;
                   case "v":
-                      console.log("quick toggle the video");
                       toggleVideo(localStream);
                       break;
                   case "x":
-                      console.log("initializing screen share");
                       toggleScreenShareBtn(); // set screen share button icon
                       $("#screen-share-btn").prop("disabled", true); // disable the button on click
                       if (screenShareActive) {
-              stopScreenShare();
-               document.getElementById("screen-share-icon").innerHTML =
-                                  "screen_share";
-            } else {
-               document.getElementById("screen-share-icon").innerHTML =
-                                  "stop_screen_share";
+                      stopScreenShare();
+                          document.getElementById("screen-share-icon").innerHTML = "screen_share";
+                      } else {
+                          document.getElementById("screen-share-icon").innerHTML = "stop_screen_share";
                           initScreenShare(agoraAppId, channelName);
                       }
                       break;
                   case "q":
-                      console.log("so sad to see you quit the channel");
                       leaveChannel();
                       break;
                   case "z":
@@ -121,11 +112,11 @@ function enableUiControls(localStream) {
     toggleBtn($("#video-btn")); // toggle button colors
     var vid_button = document.getElementById("video-icon");
     if (vid_button.innerHTML == "videocam_off") {
-      vid_button.innerHTML = "videocam";
+          vid_button.innerHTML = "videocam";
           localStream.unmuteVideo(); // enable the local video
           toggleVisibility("#no-local-video", false); // hide the user icon when video is enabled
     } else {
-      vid_button.innerHTML = "videocam_off";
+          vid_button.innerHTML = "videocam_off";
           localStream.muteVideo(); // disable the local video
           toggleVisibility("#no-local-video", true); // show the user icon when video is disabled
       }
@@ -140,3 +131,4 @@ function enableUiControls(localStream) {
           message();
       }
   })
+
