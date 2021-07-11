@@ -35,7 +35,7 @@ app.use('/', authRoutes);
 mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
 .then((result)=> {
     console.log('connected');
-    server.listen(3000, () => {
+    server.listen(process.env.PORT || 3000, () => {
         console.log('listening to port 3000');
     });
 })
