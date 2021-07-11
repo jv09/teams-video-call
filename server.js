@@ -14,6 +14,7 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const Chat = require('./models/chat');
+const port = Process.env.port||3000;
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -35,7 +36,7 @@ app.use('/', authRoutes);
 mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
 .then((result)=> {
     console.log('connected');
-    server.listen(process.env.PORT || 3000, () => {
+    server.listen(port, () => {
         console.log('listening to port 3000');
     });
 })
