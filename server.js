@@ -14,7 +14,7 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const Chat = require('./models/chat');
-const port = Process.env.port||3000;
+const port = process.env.port||3000;
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
