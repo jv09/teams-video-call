@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script2.js" defer></script>
+    <link rel="stylesheet" href="/style.css">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
+        <!-- Bootstrap core CSS -->
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+      </style>
+    <!-- Custom styles for this template -->
+    <link href="/sidebars.css" rel="stylesheet">  
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        <div class="main__left__home">
+            <h1 id="head1">Welcome To Teams</h1>
+            <div class="left"> 
+                <div class="main__left_1">
+                    <h2>Create A Team</h2>
+                    <form action="/home" id="new-post-form" method="POST">
+                        Room Name
+                        <br>
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <br>
+                        Password
+                        <br>
+                        <input type="password" name="password"  required>
+                        <br>
+                        Confirm Password
+                        <br>
+                        <input type="password" name="confirm_password"  required>
+                        <br>
+                        <br>
+                        <input type="submit" value="Create Team">
+                        <br>
+                    </form>
+                </div>
+                <div class="main__left_2">
+                    <h2>Join A Team</h2>
+                    <form action="/join" id="new-post" method="POST">
+                        Team Id
+                        <br>
+                        <input type="text" name="name" placeholder="Id" required>
+                        <br>
+                        Password
+                        <br>
+                        <input type="password" name="password"  required>
+                        <br>
+                        <br>
+                        <input type="submit" value="Join Team">
+                    </form>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+
+
+<div>
+    <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+        <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+          <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+          <span class="fs-5 fw-semibold">Your Teams</span>
+        </a>
+        <div class="list-group list-group-flush border-bottom scrollarea">
+    <!-- <h3 class="main__header">Your Teams</h3> -->
+<!-- <div class="Teams-list"> -->
+    <!-- <ul id="Teams"> -->
+        <% for (team of teams){%>
+            <a href="<%=team._id %>/home" class="list-group-item list-group-item-action py-3 lh-tight">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                <strong class="mb-1"> <%= team.name %> </strong>
+                <!-- <small class="text-muted">Mon</small> -->
+                </div>
+                <!-- <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div> -->
+            </a>
+        <%} %>
+            
+               <!-- <li>
+                <a href="<%=team._id %>/home">  <%= team.name %> </a>
+               </li>  -->
+           
+    <!-- </ul> -->
+<!-- </div> -->
+</div>
+</div>
+</div>
+
+</div>
+
+
+<script src="/bootstrap.bundle.min.js"></script>
+
+<script src="/sidebars.js"></script>
+
+</body>
+</html>

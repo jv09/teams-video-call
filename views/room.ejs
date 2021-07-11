@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script>
+			var token = "<%=token%>";
+			var channelName = "<%=channelName%>";
+		    var uid = "<%=uid%>";
+			var agoraAppId = "<%=AgoraAppId%>";
+			var screenuid = "<%=screenuid%>";
+			var screentoken = "<%=screenToken%>";
+			var username = "<%=username%>";
+			var roomId = '<%=roomId%>'
+		</script>
+		<link rel="stylesheet" href="/style.css" />
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+		<link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
+        <!-- Bootstrap core CSS -->
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+      </style>
+    <!-- Custom styles for this template -->
+    <link href="/sidebars.css" rel="stylesheet">  
+		<title>Video Call</title>
+	</head>
+	<body>
+		<div class="main">
+			<div id="main__left" style="width: 100%">
+				<div class="main__videos">
+					<div id="video-grid"></div>
+				</div>
+				<div class="main__controls">
+					<div class="main__controls__block">
+						<div class="main__controls__button" id="mic-btn">
+							<!-- <span id="mic-icon" class="material-icons-outlined" style="font-size:15px">mic</span> -->
+							<span id="mic-icon" class="material-icons">mic</span>
+
+							<!-- <span>Mute</span> -->
+						</div>
+						<div id="video-btn" class="main__controls__button">
+							<span id="video-icon" class="material-icons">videocam</span>
+
+							<!-- <span id="setvideo">Stop Video</span> -->
+						</div>
+						<div class="main__controls__button" id="screen-share-btn">
+							<span class="material-icons" id="screen-share-icon"
+								>screen_share</span>
+
+							<!-- <span id="screen-share">Screen Share</span> -->
+						</div>
+					</div>
+					<div class="main__controls__block">
+							<div class="main__controls__button" onclick=" getChat(0)">
+								<span id="participants-btn" class="material-icons">group</span>
+							</div>
+							<div class="main__controls__button" onclick=" getChat(1)">
+								<span id="chat-btn" class="material-icons">chat_bubble</span>
+							</div>
+					</div>
+
+					<div class="main__controls__block">
+							<div
+								class="main__controls__button"
+								id="exit-btn"
+								style="background-color: #ea4335"
+							>
+								<span class="material-icons">call_end</span>
+							</div>
+					</div>
+			
+		</div>
+		</div>
+			<div id="main__right__1">
+				<div id="main__chat__window">
+					<div class="main__header">
+						<p>Chat</p>
+					</div>
+				</div>
+				<!-- <div id="main__chat__window__1">
+					<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+						<a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+						  <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+						  <span class="fs-5 fw-semibold">Chat</span>
+						</a>
+						<div class="list-group list-group-flush border-bottom scrollarea">
+						</div>
+					</div>	
+	
+				</div>
+				 -->
+				<div class="main__message__container">
+					<input
+						id="chat_message"
+						type="text"
+						placeholder="Type message here..."
+					/>
+					<div class="send">
+						<span
+							class="material-icons"
+							class="send"
+							onclick="message()"
+							style="color: whitesmoke"
+							>send</span
+						>
+					</div>
+				</div>
+			</div>
+			
+			<div id="main__right__2">
+				<div id="main__chat__window">
+					<div class="main__header">
+						<p>Participants</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	<script src="/bootstrap.bundle.min.js"></script>
+
+	<script src="/sidebars.js"></script>
+
+	</body>
+	<script src="/socket.io/socket.io.js" defer></script>
+	<script src="/grid_resize.js" defer></script>
+	<!-- <script src="/script.js" defer></script> -->
+	<!-- <script src="https://kit.fontawesome.com/c939d0e917.js"></script> -->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+		crossorigin="anonymous"
+	/>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"
+	></script>
+	<script src="/AgoraRTCSDK-3.6.0.js" defer></script>
+	<link
+		rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+		integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+		crossorigin="anonymous"
+	/>
+	<link
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+		rel="stylesheet"
+	/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$("#mic-btn").prop("disabled", true);
+		$("#video-btn").prop("disabled", true);
+		$("#screen-share-btn").prop("disabled", true);
+		$("#exit-btn").prop("disabled", true);
+	</script>
+	<script src="/ui.js"></script>
+	<script src="/script.js" defer></script>
+	<!-- <link rel="stylesheet" type="text/css" href="/style.css" /> -->
+</html>

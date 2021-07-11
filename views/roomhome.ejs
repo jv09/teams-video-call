@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <script>
+        username = "<%= username %>"
+        roomId = "<%=roomId%>"
+    </script>
+    <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>    
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        <div class ="main__left">
+        <div class="main__left__top">
+        <h1><%=roomcheck.name%></h1>
+        <h3>Team Id : <%=roomcheck._id%></h3>
+        <h3>Team Password : <%=roomcheck.password%></h3>
+        Share your team id and password with your friends to let them join the room.
+        <hr>
+        <h3>Start a Video Call: <a href="/<%=roomId%>">Click Here</a></h3>
+        
+        <br>
+        <div class = "main__left__bottom">
+            <h3>  Memebers </h3>
+            <div class="Teams-list">
+                <ul id="Teams">
+                        <% for (user of users){%>
+                        <li>
+                            <a><%= user.username %> </a>
+                        </li> 
+                    <%} %>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <div class="main__right">
+        <div id="main__chat__window__room">
+            <div class="main__header">
+                <p>Chat</p>
+            </div>
+            <div>
+                <% for (chat of chats){%>
+                    <div class="messageuser">
+                        <%=chat.username%>
+                        
+                    </div>
+                    <div class="message">
+                        <%=chat.message%>
+                    </div>
+                <%} %>  
+            </div>
+        </div>
+        
+
+            
+        <div class="main__message__container__room">
+            <input
+                id="chat_message__room"
+                type="text"
+                placeholder="Type message here..."
+            />
+            <div class="send">
+                <span
+                    class="material-icons"
+                    class="send"
+                    onclick="message()"
+                    style="color: whitesmoke"
+                    >send</span
+                >
+            </div>
+        </div>
+    </div>
+  </section>
+</div>
+</body>
+<script src="/socket.io/socket.io.js" defer></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+/>
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"
+></script>
+
+<link
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+		rel="stylesheet"
+/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+<script src="/script3.js" defer></script>
+
+</html>
