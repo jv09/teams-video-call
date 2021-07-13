@@ -11,7 +11,7 @@ body {
 	width: 100%;
 	height: 100%;
 	margin: auto;
-	max-height: 90vh;
+	max-height: 85vh;
 }
 
 .main {
@@ -33,7 +33,7 @@ body {
 	width: 0%;
 } */
 
-.main__videos {
+.main__videos_1 {
 	background-color:#222324;
 	display: flex;
 	flex-direction: column;
@@ -149,7 +149,7 @@ background-color:#2f2e31 ;
 	max-width: 100%;
 }
 
-#main__chat__window {
+#main__chat__window_1 {
 	height: 80%;
 	max-width: 100%;
 	display: flex;
@@ -169,10 +169,10 @@ background-color:#2f2e31 ;
 	max-width: 100%;
 }
 
-#chat_message {
+#text_message {
 	flex-grow: 1;
 	background-color: transparent;
-	width: 60%;
+	width: 65%;
 	color: black;
 }
 
@@ -254,13 +254,13 @@ video {
 .btn-danger{
 background-color: #ea4335
 }
-#main__chat__window::-webkit-scrollbar {
+#main__chat__window_1::-webkit-scrollbar {
   width: 9px;             
 }
 
 
 
-#main__chat__window::-webkit-scrollbar-thumb {
+#main__chat__window_1::-webkit-scrollbar-thumb {
   background-color:#999da1;    
   border-radius: 20px;       
   border: 3px solid;  

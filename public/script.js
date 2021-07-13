@@ -327,8 +327,8 @@ function leaveChannel() {
 	);
 }
 
-const messages = document.getElementById("main__chat__window");
-const chat_value = document.getElementById("chat_message");
+const messages = document.getElementById("main__chat__window_1");
+const chat_value = document.getElementById("text_message");
 socket.on("createMessage", (mes, username) => {
 	show(mes, username);
 });
@@ -336,7 +336,7 @@ const message = () => {
 
 	socket.emit("message", chat_value.value, username);
 	 chat_value.value = '';
-	 document.getElementById("chat_message").focus();
+	 document.getElementById("text_message").focus();
 };
 const show = (mes, username) => {
 	div = document.createElement("div");
@@ -368,6 +368,4 @@ const copyme = () => {
         document.getElementById("copyme").innerHTML = "Link Copied!";
         setTimeout( () => {
             document.getElementById("copyme").innerHTML = "Meet Link";
-            }, 1500);
-}
-
+            }, 1500)}
