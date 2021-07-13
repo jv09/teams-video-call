@@ -1,14 +1,13 @@
 var usernames = [];
 
-var cameraVideoProfile = "480P_4"; // 640 × 480 @ 30fps  & 750kbs
-var screenVideoProfile = "480P_4"; // 640 × 480 @ 30fps
+var cameraVideoProfile = "480P_4"; 
+var screenVideoProfile = "480P_4";
 const socket = io("/");
-// create client instances for camera (client) and screen share (screenClient)
+
 var client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
 var screenClient;
-// stream references (keep track of active streams)
-var remoteStreams = {}; // remote streams obj struct [id : stream]
 
+var remoteStreams = {}; 
 var localStreams = {
 	camera: {
 		id: "",
@@ -22,12 +21,11 @@ var localStreams = {
 
 AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.INFO);
 
-// var mainStreamId; // reference to main stream
-var screenShareActive = false; // flag for screen share
 
+var screenShareActive = false; 
 
 function initClientJoinChannel() {
-	// init Agora SDK
+
 	client.init(
 		agoraAppId,
 		function () {
@@ -43,7 +41,7 @@ function initClientJoinChannel() {
 			})
 
 			
-      		// join channel upon successfull init
+      		
 	 	},
 	 	function (err) {
 	 		console.log("[ERROR] : AgoraRTC client init failed", err);
@@ -54,19 +52,16 @@ function initClientJoinChannel() {
 initClientJoinChannel();
 
 client.on("stream-published", function (evt) {
-	 //addRemoteStreamMiniView(evt.stream);
-    //  socket.emit("videouser", username);
+	
 	console.log("Publish local stream successfully");
 });
 
-// connect remote streams
 client.on("stream-added", function (evt) {
 	var stream = evt.stream;
 	var streamId = stream.getId();
 	console.log("new stream added: " + streamId);
 	
-	//socket.emit("adduser", username);
-    // Subscribe to the stream.
+	
 	client.subscribe(stream, function (err) {
 		console.log("[ERROR] : subscribe stream failed", err);
 	});
@@ -76,22 +71,20 @@ client.on("stream-added", function (evt) {
 client.on("stream-subscribed", function (evt) {
 	var remoteStream = evt.stream;
 	var remoteId = remoteStream.getId();
-	// remoteStreams[remoteId] = remoteStream;
 	console.log("Subscribe remote stream successfully: " + remoteId);
 
 	addRemoteStreamMiniView(remoteStream);
 });
 
-// remove the remote-container when a user leaves the channel
+
 client.on("peer-leave", function (evt) {
-	var streamId = evt.stream.getId(); //get stream id
+	var streamId = evt.stream.getId(); 
 	
 	var remoteContainerID = "#" + streamId + "_container";
-	$(remoteContainerID).empty().remove(); //
+	$(remoteContainerID).empty().remove(); 
 	Dish();
 });
 
-// show mute icon whenever a remote has muted their mic
 client.on("mute-audio", function (evt) {
 	document.getElementById(evt.uid + "_mute").style.backgroundColor = "#cc3898";
 	setVisibility("#" + evt.uid + "_mute", true);
@@ -100,14 +93,13 @@ client.on("mute-audio", function (evt) {
 client.on("unmute-audio", function (evt) {
 	setVisibility("#" + evt.uid + "_mute", false);
 });
-
-// show user icon whenever a remote has disabled their video
+S
 client.on("mute-video", function (evt) {
 	var remoteId = evt.uid;
 	
-	// if the main user stops their video select a random user from the list
+	
 	if (remoteId != mainStreamId) {
-		// if not the main video then show the user icon
+		
 		setVisibility("#" + remoteId + "_no-video", true);
 	}
 });
@@ -116,7 +108,6 @@ client.on("unmute-video", function (evt) {
 	setVisibility("#" + evt.uid + "_no-video", false);
 });
 
-// join a channel
 function joinChannel(channelName, uid, token, username) {
 	client.join(
 		token,
@@ -126,7 +117,7 @@ function joinChannel(channelName, uid, token, username) {
 		function (uid, username) {
 			console.log("User with uid: " + uid + " join channel successfully");
 			createCameraStream(uid);
-			localStreams.camera.id = uid; // keep track of the stream uid
+			localStreams.camera.id = uid; 
 		},
 		function (err) {
 			console.log("[ERROR] : join channel failed", err);
@@ -134,7 +125,6 @@ function joinChannel(channelName, uid, token, username) {
 	);
 }
 
-// video streams for channel
 function createCameraStream(uid) {
 	var localStream = AgoraRTC.createStream({
 		streamID: uid,
@@ -147,20 +137,16 @@ function createCameraStream(uid) {
 		function () {
 			console.log("getUserMedia successfully");
 				
-			// TODO: add check for other streams. play local stream full size if alone in channel
-			// localStream.play('local-video'); // play the given stream within the local-video div
+			
 			addRemoteStreamMiniView(localStream);
 
-			// publish local stream
 			client.publish(localStream, function (err) {
 			
-				// socket.emit('user-name',req.session.userdata.displayNa)
 				console.log("[ERROR] : publish local stream error: " + err);
 			});
-			//  socket.emit('videouser',username)
 
-			enableUiControls(localStream); // move after testing
-			localStreams.camera.stream = localStream; // keep track of the camera stream for later
+			enableUiControls(localStream); 
+			localStreams.camera.stream = localStream; 
 		},
 		function (err) {
 			document.getElementById("video_icon").innerHTML = "videocam_off";
@@ -178,7 +164,6 @@ function createCameraStream(uid) {
 	);
 }
 
-// SCREEN SHARING
 function initScreenShare(agoraAppId, channelName) {
 	screenClient = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
 	console.log("AgoraRTC screenClient initialized");
@@ -191,28 +176,27 @@ function initScreenShare(agoraAppId, channelName) {
 			console.log("[ERROR] : AgoraRTC screenClient init failed", err);
 		}
 	);
-	// keep track of the uid of the screen stream.
+	
 	localStreams.screen.id = screenuid;
 
-	// Create the stream for screen sharing.
+	
 	var screenStream = AgoraRTC.createStream({
 		streamID: screenuid,
-		audio: false, // Set the audio attribute as false to avoid any echo during the call.
+		audio: false, 
 		video: false,
-		screen: true, // screen stream
+		screen: true, 
 		screenAudio: true,
-		mediaSource: "screen", // Firefox: 'screen', 'application', 'window' (select one)
+		mediaSource: "screen", 
 	});
 
 	screenStream.setVideoProfile(screenVideoProfile);
-	// initialize the stream
-	// -- NOTE: this must happen directly from user interaction, if called by a promise or callback it will fail.
+	
 	screenStream.init(
 		function () {
 			console.log("getScreen successful");
-			localStreams.screen.stream = screenStream; // keep track of the screen stream
+			localStreams.screen.stream = screenStream;
 			screenShareActive = true;
-			$("#screen_share_btn").prop("disabled", false); // enable button
+			$("#screen_share_btn").prop("disabled", false); 
 			screenClient.join(
 				screentoken,
 				channelName,
@@ -232,11 +216,11 @@ function initScreenShare(agoraAppId, channelName) {
 					document.getElementById("screen_share_icon").innerHTML =
 						"screen_share";
 			console.log("[ERROR] : getScreen failed", err);
-			localStreams.screen.id = ""; // reset screen stream id
-			localStreams.screen.stream = {}; // reset the screen stream
-			screenShareActive = false; // resest screenShare
-			toggleScreenShareBtn(); // toggle the button icon back
-			$("#screen-share-btn").prop("disabled", false); // enable button
+			localStreams.screen.id = ""; 
+			localStreams.screen.stream = {}; 
+			screenShareActive = false;
+			toggleScreenShareBtn(); 
+			$("#screen-share-btn").prop("disabled", false); 
 		}
 	);
 
@@ -244,36 +228,33 @@ function initScreenShare(agoraAppId, channelName) {
 
 function stopScreenShare() {
 
-	localStreams.screen.stream.disableVideo(); // disable the local video stream (will send a mute signal)
-	localStreams.screen.stream.stop(); // stop playing the local stream
+	localStreams.screen.stream.disableVideo(); 
+	localStreams.screen.stream.stop(); 
 	localStreams.screen.stream.close();
-	localStreams.camera.stream.enableVideo(); // enable the camera feed
-		
-	// localStreams.camera.stream.play('local-video'); // play the camera within the full-screen-video div
+	localStreams.camera.stream.enableVideo(); 
 	$("#video_btn").prop("disabled", false);
 	screenClient.leave(
 		function () {
 			screenShareActive = false;
 			console.log("screen client leaves channel");
-			$("#screen_share_btn").prop("disabled", false); // enable button
+			$("#screen_share_btn").prop("disabled", false); 
 			localStreams.screen.stream.stop();
-			screenClient.unpublish(localStreams.screen.stream); // unpublish the screen client
-			localStreams.screen.stream.close(); // close the screen client stream
-			localStreams.screen.id = ""; // reset the screen id
-			localStreams.screen.stream = {}; // reset the stream obj
+			screenClient.unpublish(localStreams.screen.stream); 
+			localStreams.screen.stream.close(); 
+			localStreams.screen.id = ""; 
+			localStreams.screen.stream = {}; 
 		},
 		function (err) {
-			console.log("client leave failed ", err); //error handling
+			console.log("client leave failed ", err);
 		}
 	);
 }
 
-// REMOTE STREAMS UI
+
 function addRemoteStreamMiniView(remoteStream) {
 
 	var streamId = remoteStream.getId();
-	// append the remote stream template to #remote-streams
-	$("#video-grid").append(
+	$("#VG").append(
 		$("<div/>", {
 			id: streamId + "_container",
 			class: "user-container",
@@ -306,39 +287,39 @@ function leaveChannel() {
 	client.leave(
 		function () {
 			console.log("client leaves channel");
-			localStreams.camera.stream.stop(); // stop the camera stream playback
-			client.unpublish(localStreams.camera.stream); // unpublish the camera stream
-			localStreams.camera.stream.close(); // clean up and close the camera stream
-			$("#remote-streams").empty(); // clean up the remote feeds
-			//disable the UI elements
+			localStreams.camera.stream.stop();
+			client.unpublish(localStreams.camera.stream); 
+			localStreams.camera.stream.close(); 
+			$("#remote-streams").empty(); 
+		
 			$("#mic_btn").prop("disabled", true);
 			$("#video_btn").prop("disabled", true);
 			$("#screen_share_btn").prop("disabled", true);
 			$("#exit_btn").prop("disabled", true);
-			// hide the mute/no-video overlays
+			
 			setVisibility("#mute-overlay", false);
 			setVisibility("#no-local-video", false);
 			Dish();
 			redirec();
 		},
 		function (err) {
-			console.log("client leave failed ", err); //error handling
+			console.log("client leave failed ", err); 
 		}
 	);
 }
 
-const messages = document.getElementById("main__chat__window");
-const chat_value = document.getElementById("chat_message");
+const MG = document.getElementById("main__chat__window_1");
+const chat_value = document.getElementById("text_message");
 socket.on("createMessage", (mes, username) => {
-	show(mes, username);
+	rendermessage(mes, username);
 });
-const message = () => {
+const chatrender = () => {
 
 	socket.emit("message", chat_value.value, username);
 	 chat_value.value = '';
-	 document.getElementById("chat_message").focus();
+	 document.getElementById("text_message").focus();
 };
-const show = (mes, username) => {
+const rendermessage = (mes, username) => {
 	div = document.createElement("div");
 	divname = document.createElement("div");
 	divname.innerHTML = username;
@@ -347,8 +328,8 @@ const show = (mes, username) => {
 	div.innerHTML = mes;
 	div.className = "message";
 	div.setAttribute("align", "left");
-	messages.append(divname);
-	messages.append(div);
+	MG.append(divname);
+	MG.append(div);
 };
 
 const redirec = () =>{
@@ -368,6 +349,4 @@ const copyme = () => {
         document.getElementById("copyme").innerHTML = "Link Copied!";
         setTimeout( () => {
             document.getElementById("copyme").innerHTML = "Meet Link";
-            }, 1500);
-}
-
+            }, 1500)}

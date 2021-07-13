@@ -42,23 +42,6 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"
     ></script>    
-    <style>
-         body 
-         {padding: 0; margin: 0;}
-        .bd-placeholder-img {
-          font-size: 1.125rem;
-          text-anchor: middle;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          user-select: none;
-        }
-  
-        @media (min-width: 768px) {
-          .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-          }
-        }
-      </style>
     <!-- Custom styles for this template -->
     <link href="/sidebars.css" rel="stylesheet">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
@@ -101,25 +84,25 @@
              
     </nav>
 
-    <div class="maincontainer">
-        <div class="chat-window">
+    <div class="roombox">
+        <div class="MBOX">
 	
 			
-			<div style="width:85% ;height:98%;display:flex;flex-direction:column;margin-left:10%;margin-right:10%;">
-				<div class="grp-window-header">
-                    <a href="/home" class="back" style="margin-left: 10px;">
-                        <b style="margin-top:auto; margin-left: 10px;" >back</b>
+			<div style="display:flex;flex-direction:column;">
+				<div class="GWH">
+                    <a href="/home" class="B" >
+                        <b style="margin-top:auto;" >back</b>
                         </a>
                         <div style="display: flex;width:100%;justify-content:flex-end">
 
-                            <a id="create_meet" class="custom_link" href="#" data-toggle="modal" data-target="#meetcreationModal" style="align-items:center;color:black; margin-top:auto" >
+                            <a id="CM" class="custom_link" href="#" data-toggle="modal" data-target="#meetcreationModal" style="align-items:center;color:black; margin-top:auto" >
                             
                            <b>Schedule Meet </b></a>
                         
 			            </div>
                 </div>
 
-                <div id="chat-show">
+                <div id="CS">
                     <% for (chat of chats){%>
                         <div class="card" style="margin-bottom: 0.5%;">
                             <div class="card-body">
@@ -141,7 +124,7 @@
                     <span
                     class="material-icons"
                     type="button"
-                    onclick="message()"
+                    onclick="chatrender()"
                     >send</span
                 >
                 </div>
@@ -158,7 +141,7 @@
 
 
 		</div>
-        <div class="show-message"></div>
+        
 	
         <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
             <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
@@ -206,27 +189,26 @@
                         <h5 class="modal-title" id="RoomcreationModalLongTitle">Schedule Meet</h5>
                     </div>
                     <form>
-
                         <div class="modal-body">
 							
                             <div class="form-group">
-                                <label for="meetname">Name</label>
-                                <input type="text" class="form-control" id="meetname" style="color: black;" required>
+                                <label for="MN">Name</label>
+                                <input type="text" class="form-control" id="MN" style="color: black;" required>
                             </div>
                             <div class="form-group">
-                                <label for="meetdate">Start Date</label>
-                                <input type="date" class="form-control" id="meetdate" style="color: black;" required>
+                                <label for="MD">Start Date</label>
+                                <input type="date" class="form-control" id="MD" style="color: black;" required>
                             </div>
                             <div class="form-group">
-                                <label for="meettime">Start Time</label>
-                                <input type="time" class="form-control" id="meettime" style="color: black;" required>
+                                <label for="MT">Start Time</label>
+                                <input type="time" class="form-control" id="MT" style="color: black;" required>
                             </div>
                     
                         </div>
                         <div class="modal-footer"">
                             <button type="button" id="meet_modal_close" class="btn btn-secondary"
                                 data-dismiss="modal">Close</button>
-                            <button class="btn btn-primary" type="button" onclick="schedulemeet()"  data-dismiss="modal">
+                            <button class="btn btn-primary" type="button" onclick="SM()"  data-dismiss="modal">
                                 Create meet
                             </button>
                         </div>
@@ -240,71 +222,6 @@
 
 
 
-    <!-- <div class="main">
-        <div class ="main__left">
-        <div class="main__left__top">
-        <h1><%=roomcheck.name%></h1>
-        <h3>Team Id : <%=roomcheck._id%></h3>
-        <h3>Team Password : <%=roomcheck.password%></h3>
-        Share your team id and password with your friends to let them join the room.
-        <hr>
-        <h3>Start a Video Call: <a href="/<%=roomId%>">Click Here</a></h3>
-        
-        <br>
-        <div class = "main__left__bottom">
-            <h3>  Memebers </h3>
-            <div class="Teams-list">
-                <ul id="Teams">
-                        <% for (user of users){%>
-                        <li>
-                            <a><%= user.username %> </a>
-                        </li> 
-                    <%} %>
-                </ul>
-            </div>
-        </div>
-    </div>
-    </div>
-    
-    <div class="main__right">
-        <div id="main__chat__window__room">
-            <div class="main__header">
-                <p>Chat</p>
-            </div>
-            <div>
-                <% for (chat of chats){%>
-                    <div class="messageuser">
-                        <%=chat.username%>
-                        
-                    </div>
-                    <div class="message">
-                        <%=chat.message%>
-                    </div>
-                <%} %>  
-            </div>
-        </div>
-        
-
-            
-        <div class="main__message__container__room">
-            <input
-                id="chat_message__room"
-                type="text"
-                placeholder="Type message here..."
-            />
-            <div class="send">
-                <span
-                    class="material-icons"
-                    class="send"
-                    onclick="message()"
-                    style="color: whitesmoke"
-                    >send</span
-                >
-            </div>
-        </div>
-    </div>
-  </section>
-</div> -->
 </body>
 <script src="/socket.io/socket.io.js" defer></script>
 

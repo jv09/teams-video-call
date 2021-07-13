@@ -92,7 +92,7 @@ io.sockets.on('connection', (socket) => {
         })
     })
 
-    socket.on('join-room-home', (roomId, username) => {
+    socket.on('JRH', (roomId, username) => {
         socket.join(roomId);
         // console.log(username);
         socket.on('message', (username, message) => {

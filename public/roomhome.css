@@ -5,55 +5,22 @@
 body {
 	height: 100vh;
 }
-.header {
-	display: flex;
-	align-items: center;
-	font-size: 4vmin;
-	height: 7%;
-	background-color: #171744;
-}
-.control-input {
-	width: 60%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-}
 
-.placeicon {
-	font-family: "Font Awesome 5 Free";
-	font-weight: 600;
-}
-.title {
-	padding-left: 5%;
-	color: whitesmoke;
-}
 
-.profile {
-	text-align: right;
-	width: 17%;
-}
-.title {
-	width: 23%;
-}
-.maincontainer {
+.roombox {
 	box-sizing: border-box;
 	height: 92%;
 	width: 100%;
 	display: flex;
 }
-.chat-window {
+.MBOX {
 	box-sizing: border-box;
 	height: 100%;
 	width: 80%;
 	display: flex;
 	flex-direction: column;
 }
-.channel-window {
-	width: 30%;
-	display: flex;
-	flex-direction: column;
-	background-color: #f4f4f4;
-}
+
 #show-message {
 	box-sizing: border-box;
 	height: 70%;
@@ -64,16 +31,9 @@ body {
 	flex-direction: column;
 	overflow: auto;
 }
-.chat-input {
-	display: flex;
-	justify-content: center;
-}
 
-#show-message::-webkit-scrollbar {
-	width: 10px;
-}
 
-#chat-show::-webkit-scrollbar-thumb {
+#CS::-webkit-scrollbar-thumb {
 	background-color: #f4f4f4; 
 	border-radius: 20px; 
 	border: 3px solid; 
@@ -89,58 +49,29 @@ li {
 	color: black;
 }
 
-/* .grp {
-	text-align: center;
-	font-size: 1.5rem;
-	overflow: hidden;
-	background-color: rgba(255, 255, 255, 0.8);
-	border: 2px solid #e1dfdd;
-	text-overflow: ellipsis;
-} */
 
-.grp-window-header {
+.GWH {
 	display: flex;
 	justify-content: space-between;
 	margin-top: -4%;
 }
-.teams {
-	display: flex;
-	align-items: center;
-	min-width: fit-content;
-}
-#create_meet {
+
+#CM {
 	display: flex;
 	text-align: center;
 	background-color: transparent;
 	color: transparent;
 }
-.channel-link {
-	display: inline-block;
-	width: 100%;
-	
-}
-.meet-link{
-	display: inline-block;
-	width: 100%;
-	
-}
-.meet-link:hover {
-	display: inline-block;
-	width: 100%;
-	background-color: darkgray;
-	
-}
-.back:hover{
-	color: #464775;
-		text-decoration: none;
+
+
+.B:hover{
+	color:#5052e4;
+	text-decoration: none;
 
 }
-.back{
+.B{
 	margin-left:8%;
 	display: flex;
 	text-decoration: none;
 	margin-top: 5%;
 }
-
-
-
