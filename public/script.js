@@ -1,3 +1,5 @@
+var usernames = [];
+
 var cameraVideoProfile = "480P_4"; // 640 × 480 @ 30fps  & 750kbs
 var screenVideoProfile = "480P_4"; // 640 × 480 @ 30fps
 const socket = io("/");
@@ -24,7 +26,7 @@ AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.INFO);
 var screenShareActive = false; // flag for screen share
 
 
-function initClientAndJoinChannel() {
+function initClientJoinChannel() {
 	// init Agora SDK
 	client.init(
 		agoraAppId,
@@ -34,14 +36,13 @@ function initClientAndJoinChannel() {
 			joinChannel(channelName, uid, token, username);
           
 			socket.emit("join-chat-room", roomId, channelName, username);
+			socket.emit("adduser", username);
 
 			socket.on("user-connected", ( username) => {
 				console.log("user:" + username + " connected");
 			})
 
-			socket.on("user-disconnected", (username) => {
-				console.log("user:" + username + " disconnected");
-			})
+			
       		// join channel upon successfull init
 	 	},
 	 	function (err) {
@@ -50,7 +51,7 @@ function initClientAndJoinChannel() {
 );
 }
 
-initClientAndJoinChannel();
+initClientJoinChannel();
 
 client.on("stream-published", function (evt) {
 	 //addRemoteStreamMiniView(evt.stream);
@@ -63,23 +64,15 @@ client.on("stream-added", function (evt) {
 	var stream = evt.stream;
 	var streamId = stream.getId();
 	console.log("new stream added: " + streamId);
-			
-	// Check if the stream is local
-	// if (streamId != localStreams.screen.id) {
-	//   console.log('subscribe to remote stream:' + streamId);
-	//   // Subscribe to the stream.
+	
+	//socket.emit("adduser", username);
+    // Subscribe to the stream.
 	client.subscribe(stream, function (err) {
 		console.log("[ERROR] : subscribe stream failed", err);
 	});
 		
-		// socket.on("videouser", (user) => {
-		// 	console.log(user);
-		// });
 });
 
- socket.on("videouser", (user) => {
- 		console.log(user);
-	 	});
 client.on("stream-subscribed", function (evt) {
 	var remoteStream = evt.stream;
 	var remoteId = remoteStream.getId();
@@ -90,9 +83,9 @@ client.on("stream-subscribed", function (evt) {
 });
 
 // remove the remote-container when a user leaves the channel
-client.on("peer-leave", function (evt, username) {
+client.on("peer-leave", function (evt) {
 	var streamId = evt.stream.getId(); //get stream id
-	console.log("user with username"+ username + "left the meeting");
+	
 	var remoteContainerID = "#" + streamId + "_container";
 	$(remoteContainerID).empty().remove(); //
 	Dish();
@@ -100,12 +93,12 @@ client.on("peer-leave", function (evt, username) {
 
 // show mute icon whenever a remote has muted their mic
 client.on("mute-audio", function (evt) {
-	document.getElementById(evt.uid + "_mute").style.backgroundColor = "#cc3833";
-	toggleVisibility("#" + evt.uid + "_mute", true);
+	document.getElementById(evt.uid + "_mute").style.backgroundColor = "#cc3898";
+	setVisibility("#" + evt.uid + "_mute", true);
 });
 
 client.on("unmute-audio", function (evt) {
-	toggleVisibility("#" + evt.uid + "_mute", false);
+	setVisibility("#" + evt.uid + "_mute", false);
 });
 
 // show user icon whenever a remote has disabled their video
@@ -115,12 +108,12 @@ client.on("mute-video", function (evt) {
 	// if the main user stops their video select a random user from the list
 	if (remoteId != mainStreamId) {
 		// if not the main video then show the user icon
-		toggleVisibility("#" + remoteId + "_no-video", true);
+		setVisibility("#" + remoteId + "_no-video", true);
 	}
 });
 
 client.on("unmute-video", function (evt) {
-	toggleVisibility("#" + evt.uid + "_no-video", false);
+	setVisibility("#" + evt.uid + "_no-video", false);
 });
 
 // join a channel
@@ -170,14 +163,14 @@ function createCameraStream(uid) {
 			localStreams.camera.stream = localStream; // keep track of the camera stream for later
 		},
 		function (err) {
-			document.getElementById("video-icon").innerHTML = "videocam_off";
-			document.getElementById("video-btn").classList.toggle("btn-danger");
-			document.getElementById("mic-icon").innerHTML = "mic_off";
-			document.getElementById("mic-btn").classList.toggle("btn-danger");
-			document.getElementById("screen-share-icon").innerHTML =
+			document.getElementById("video_icon").innerHTML = "videocam_off";
+			document.getElementById("video_btn").classList.toggle("btn-danger");
+			document.getElementById("mic_icon").innerHTML = "mic_off";
+			document.getElementById("mic_btn").classList.toggle("btn-danger");
+			document.getElementById("screen_share_icon").innerHTML =
 				"cancel_presentation";
 			document
-				.getElementById("screen-share-btn")
+				.getElementById("screen_share_btn")
 				.classList.toggle("btn-danger");
 			console.log("[ERROR] : getUserMedia failed", err);
 			console.log("[ERROR] : getUserMedia failed", err);
@@ -219,7 +212,7 @@ function initScreenShare(agoraAppId, channelName) {
 			console.log("getScreen successful");
 			localStreams.screen.stream = screenStream; // keep track of the screen stream
 			screenShareActive = true;
-			$("#screen-share-btn").prop("disabled", false); // enable button
+			$("#screen_share_btn").prop("disabled", false); // enable button
 			screenClient.join(
 				screentoken,
 				channelName,
@@ -236,7 +229,7 @@ function initScreenShare(agoraAppId, channelName) {
 		},
 		function (err) {
 		
-					document.getElementById("screen-share-icon").innerHTML =
+					document.getElementById("screen_share_icon").innerHTML =
 						"screen_share";
 			console.log("[ERROR] : getScreen failed", err);
 			localStreams.screen.id = ""; // reset screen stream id
@@ -253,15 +246,16 @@ function stopScreenShare() {
 
 	localStreams.screen.stream.disableVideo(); // disable the local video stream (will send a mute signal)
 	localStreams.screen.stream.stop(); // stop playing the local stream
+	localStreams.screen.stream.close();
 	localStreams.camera.stream.enableVideo(); // enable the camera feed
 		
 	// localStreams.camera.stream.play('local-video'); // play the camera within the full-screen-video div
-	$("#video-btn").prop("disabled", false);
+	$("#video_btn").prop("disabled", false);
 	screenClient.leave(
 		function () {
 			screenShareActive = false;
 			console.log("screen client leaves channel");
-			$("#screen-share-btn").prop("disabled", false); // enable button
+			$("#screen_share_btn").prop("disabled", false); // enable button
 			localStreams.screen.stream.stop();
 			screenClient.unpublish(localStreams.screen.stream); // unpublish the screen client
 			localStreams.screen.stream.close(); // close the screen client stream
@@ -288,14 +282,6 @@ function addRemoteStreamMiniView(remoteStream) {
 		)
 	);
 	 
-	
-	// append(
-	//     $('<div/>', {'id': streamId + '_mute', 'class': 'mute-overlay'}).append(
-	//         $('<i/>', {'class': 'fas fa-microphone-slash'})
-	//     ),
-	//     $('<div/>', {'id': streamId + '_no-video', 'class': 'no-video-overlay text-center'}).append(
-	//       $('<i/>', {'class': 'fas fa-user'})
-	//     ),
 	console.log(remoteStream, streamId);
 	remoteStream.play("user_video_" + streamId);
 	console.log("video" + streamId);
@@ -307,6 +293,10 @@ function addRemoteStreamMiniView(remoteStream) {
 	Dish();
 
 }
+
+// socket.on("user-disconnected", (username) => {
+// 	console.log("user:" + username + " disconnected");
+// })
 
 function leaveChannel() {
 	if (screenShareActive) {
@@ -321,15 +311,13 @@ function leaveChannel() {
 			localStreams.camera.stream.close(); // clean up and close the camera stream
 			$("#remote-streams").empty(); // clean up the remote feeds
 			//disable the UI elements
-			$("#mic-btn").prop("disabled", true);
-			$("#video-btn").prop("disabled", true);
-			$("#screen-share-btn").prop("disabled", true);
-			$("#exit-btn").prop("disabled", true);
+			$("#mic_btn").prop("disabled", true);
+			$("#video_btn").prop("disabled", true);
+			$("#screen_share_btn").prop("disabled", true);
+			$("#exit_btn").prop("disabled", true);
 			// hide the mute/no-video overlays
-			toggleVisibility("#mute-overlay", false);
-			toggleVisibility("#no-local-video", false);
-			// show the modal overlay to join
-			// $("#modalForm").modal("show");
+			setVisibility("#mute-overlay", false);
+			setVisibility("#no-local-video", false);
 			Dish();
 			redirec();
 		},
@@ -362,21 +350,24 @@ const show = (mes, username) => {
 	messages.append(divname);
 	messages.append(div);
 };
-// const show = (mes, username) => {
-// 	a = document.createElement("a");
-// 	a.className = "list-group-item list-group-item-action py-3 lh-tight";
-// 	d = document.createElement("div");
-// 	d.className = "d-flex w-100 align-items-center justify-content-between";
-// 	div = document.createElement("div");
-// 	strongname = document.createElement("strong");
-// 	strongname.innerHTML = username;
-// 	strongname.className = "mb-1"
-// 	//divname.setAttribute("align", "left");
-// 	div.innerHTML = mes;
-// 	div.className = "col-10 mb-1 small";
-// 	//div.setAttribute("align", "left");
-// 	messages.append(a);
-// 	messages.append(d);
-// 	messages.append(strongname);
-// 	messages.append(div);
-// };
+
+const redirec = () =>{
+	document.location.href = './';
+}
+
+socket.on('update', function (users){
+	usernames = users;
+	$('#membercontainer').empty();
+	for(var i=0; i<usernames.length; i++) {
+		$('#membercontainer').append("<h1>" + usernames[i] + "</h1>"); 
+	}
+});
+
+const copyme = () => {
+    navigator.clipboard.writeText(window.location.href);
+        document.getElementById("copyme").innerHTML = "Link Copied!";
+        setTimeout( () => {
+            document.getElementById("copyme").innerHTML = "Meet Link";
+            }, 1500);
+}
+

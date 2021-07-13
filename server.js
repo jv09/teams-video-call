@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const authRoutes = require('./routes/auth-routes');
 const server = require('http').Server(app);
+var DomParser = require('dom-parser');
 const io = require('socket.io')(server);
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -16,7 +17,18 @@ const cookieParser = require('cookie-parser');
 const Chat = require('./models/chat');
 const port = process.env.PORT||3000;
 var secure = require('ssl-express-www');
+const fs = require('fs')
+var users =[];
 
+var parser = new DomParser();
+
+fs.readFile('htmlToParse.html', 'utf8', function(err, html){
+    if (!err){
+      var dom = parser.parseFromString(html);
+  
+      console.log(dom.getElementById('myElement').innerHTML);
+    }
+  })
 app.use(secure);
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -46,13 +58,28 @@ mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true, useUnifiedTopology
     console.log(err);
 })
 
-io.on('connection', (socket) => {
+
+io.sockets.on('connection', (socket) => {
     socket.on('join-chat-room', (roomId, channelName, username) => {
         socket.join(roomId);
         socket.broadcast.to(roomId).emit('user-connected', username);
+        socket.on('adduser', function (user) {
+            socket.user = user;
+            users.push(user);
+            updateClients();
+        });
         socket.on('disconnect', () => {
-            socket.broadcast.to(roomId).emit('user-disconnected', username);
+            // socket.broadcast.to(roomId).emit('user-disconnected', username);
+            for(var i=0; i<users.length; i++) {
+                if(users[i] == socket.user) {
+                    delete users[users[i]];
+                }
+            }
+            updateClients(); 
         })
+        function updateClients() {
+            io.sockets.emit('update', users);
+        }
         socket.on('message', (message, username) => {
             new Chat({
                 message: message,
@@ -67,8 +94,8 @@ io.on('connection', (socket) => {
 
     socket.on('join-room-home', (roomId, username) => {
         socket.join(roomId);
-        console.log(username);
-        socket.on('message', (message, username) => {
+        // console.log(username);
+        socket.on('message', (username, message) => {
             new Chat({
                 message: message,
                 username: username,
@@ -76,7 +103,7 @@ io.on('connection', (socket) => {
             }).save().then(newChat => {
                 console.log("Chat message " + newChat.message + " saved");
             })
-             io.to(roomId).emit('createMessage', message, username);
+             io.to(roomId).emit('createMessage', message, username );
         })
     })
 })

@@ -5,16 +5,242 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/home.css">
+    <link rel="stylesheet" href="/roomhome.css">
     <script>
         username = "<%= username %>"
         roomId = "<%=roomId%>"
     </script>
     <link
     href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>    
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+			integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+	/>
+    <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+    />
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+    ></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+    ></script>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"
+    ></script>    
+    <style>
+         body 
+         {padding: 0; margin: 0;}
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+      </style>
+    <!-- Custom styles for this template -->
+    <link href="/sidebars.css" rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
+    <link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+	/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /><link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" /></head>
     <title>Document</title>
 </head>
 <body>
-    <div class="main">
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #101172"	>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">Teams</a>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="width: 80%; justify-content: center;">
+                <li class="nav-item active" class="nav-item active" style="width: 60%;margin-right: 2%">
+
+                </li>
+                
+            </ul>
+                    <a href="/profile" class="navbar-brand">
+                      <%=username%>
+                    </a>
+                    <a href="/leave" class="navbar-brand">Sign Out</a>
+             
+    </nav>
+
+    <div class="maincontainer">
+        <div class="chat-window">
+	
+			
+			<div style="width:85% ;height:98%;display:flex;flex-direction:column;margin-left:10%;margin-right:10%;">
+				<div class="grp-window-header">
+                    <a href="/home" class="back" style="margin-left: 10px;">
+                        <b style="margin-top:auto; margin-left: 10px;" >back</b>
+                        </a>
+                        <div style="display: flex;width:100%;justify-content:flex-end">
+
+                            <a id="create_meet" class="custom_link" href="#" data-toggle="modal" data-target="#meetcreationModal" style="align-items:center;color:black; margin-top:auto" >
+                            
+                           <b>Schedule Meet </b></a>
+                        
+			            </div>
+                </div>
+
+                <div id="chat-show">
+                    <% for (chat of chats){%>
+                        <div class="card" style="margin-bottom: 0.5%;">
+                            <div class="card-body">
+                                <div class="card-title" style="font-size: 15px;">
+                                    <h5><%=chat.username%></h5>
+                                </div>
+                                <div class="card-subtitle mb-2 text-muted" style="font-size: 12px;">
+                                    <h6><%=chat._id.getTimestamp()%></h6>
+                                </div>
+                                <div class="cardtext" style="font-size: 12px;">
+                                    <%-chat.message%>
+                                </div>
+                            </div>
+                        </div>    
+                    <%} %>  
+                </div>
+                <div class="main__message__container">
+                    <input id="chat_message__room" type="text" placeholder="Type message here...">
+                    <span
+                    class="material-icons"
+                    type="button"
+                    onclick="message()"
+                    >send</span
+                >
+                </div>
+            <div style="height: 100%; display: flex; align-items: center;">
+                
+            </div>
+                
+                <div style="display:flex;flex-direction:row;"> 
+                <div id="text" style="width:100%;"></div>
+                
+		    </div> 
+	    </div>
+
+
+
+		</div>
+        <div class="show-message"></div>
+	
+        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+            <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+              <svg class="bi me-2" width="0" height="24"><use xlink:href="#bootstrap"/></svg>
+              <span class="fs-0 fw-semibold">Team Members</span>
+            </a>
+            <div class="list-group list-group-flush border-bottom scrollarea">       
+                
+                <% for (user of users){%>
+                    <div style="display: flex; flex-direction: column; color: black;">
+                        <ul>
+                            <div><%= user.username %></div>
+                            <div><%= user.email %></div>
+                        </ul>
+                    </br>
+                    </div>
+                <%} %>
+                <div style="display: flex; flex-direction: column; color: black;">
+                    <ul>
+                        <h7>Team Id : <%=roomcheck._id%></h7>
+                    </br>
+                        <h7>Team Password : <%=roomcheck.password%></h7>
+                    </ul>
+                </br>
+                </div>
+                
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+    
+		
+
+        </div>
+    </div>
+    
+
+    <div class="modal fade" id="meetcreationModal" tabindex="-1" role="dialog"
+            aria-labelledby="RoomcreationModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="color:  black;">
+                    <div class="modal-header" ">
+                        <h5 class="modal-title" id="RoomcreationModalLongTitle">Schedule Meet</h5>
+                    </div>
+                    <form>
+
+                        <div class="modal-body">
+							
+                            <div class="form-group">
+                                <label for="meetname">Name</label>
+                                <input type="text" class="form-control" id="meetname" style="color: black;" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="meetdate">Start Date</label>
+                                <input type="date" class="form-control" id="meetdate" style="color: black;" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="meettime">Start Time</label>
+                                <input type="time" class="form-control" id="meettime" style="color: black;" required>
+                            </div>
+                    
+                        </div>
+                        <div class="modal-footer"">
+                            <button type="button" id="meet_modal_close" class="btn btn-secondary"
+                                data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary" type="button" onclick="schedulemeet()"  data-dismiss="modal">
+                                Create meet
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+    </div>
+
+    
+
+
+
+    <!-- <div class="main">
         <div class ="main__left">
         <div class="main__left__top">
         <h1><%=roomcheck.name%></h1>
@@ -78,7 +304,7 @@
         </div>
     </div>
   </section>
-</div>
+</div> -->
 </body>
 <script src="/socket.io/socket.io.js" defer></script>
 
@@ -103,5 +329,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
 <script src="/script3.js" defer></script>
+
+<script src="/bootstrap.bundle.min.js"></script>
+
+<script src="/sidebars.js"></script>
 
 </html>

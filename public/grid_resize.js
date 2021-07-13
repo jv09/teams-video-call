@@ -14,7 +14,6 @@ function Area(Increment, Count, Width, Height, Margin = 10) {
 }
 // Dish:
 function Dish() {
-	console.log("ok");
 	// variables:
 	let Margin = 2;
 	let Scenary = document.getElementById("video-grid");
@@ -52,7 +51,7 @@ function setWidth(width, margin) {
 // Load and Resize Event
 window.addEventListener(
 	"load",
-	function (event) {
+	function () {
 		Dish();
 		window.onresize = Dish;
 	},
@@ -62,7 +61,7 @@ window.addEventListener(
 
 window.addEventListener(
 	"onresize",
-	function (event) {
+	function () {
 		Dish();
 		window.onresize = Dish;
 	},
@@ -71,63 +70,30 @@ window.addEventListener(
 
 const chat = () => {
 	
-	var x = document.getElementById("main__right__1");
-	var y = document.getElementById("main__left");
-	var z = document.getElementById("main__right__2");
+	var a = document.getElementById("main__right__1");
+	var b = document.getElementById("main__left");
 	
-	
-	if ((x.style.display === "none" || y.style.width == "100%") && z.style.display != "none") {
-		x.style.display = "flex";
-		document.getElementById("chat_message").focus();
-		y.style.width = "80%";
-		document.getElementById("chat-btn").innerHTML = "chat_bubble_outline";
-		z.style.display = "none";
-	} else if(x.style.display === "none" || y.style.width == "100%"){
-		x.style.display = "flex";
+	if(a.style.display === "none" || b.style.width == "100%"){
+		a.style.display = "flex";
 		 document.getElementById("chat_message").focus();
-		y.style.width = "80%";
-		document.getElementById("chat-btn").innerHTML = "chat_bubble_outline";
+		b.style.width = "80%";
 	} 
 	else {
-		y.style.width = "100%";
-		x.style.display = "none";
-		document.getElementById("chat-btn").innerHTML = "chat_bubble";
-	}
-	Dish();
-};
-const change_color = () => {
-	document.getElementById("mic-btn").style.backgroundColor="#cc3833";
-}
-
-const participants = () => {
-	
-	var x = document.getElementById("main__right__2");
-	var y = document.getElementById("main__left");
-	var z = document.getElementById("main__right__1");
-	
-	
-	if ((x.style.display === "none" || y.style.width == "100%") && z.style.display != "none") {	
-		x.style.display = "flex";
-		y.style.width = "80%";
-		z.style.display = "none";
-		document.getElementById("chat-btn").innerHTML = "chat_bubble";
-	} else if (x.style.display === "none" || y.style.width == "100%"){
-		x.style.display = "flex";
-		y.style.width = "80%";
-	}  
-	else {
-		y.style.width = "100%";
-		x.style.display = "none";
+		b.style.width = "100%";
+		a.style.display = "none";
 	}
 	Dish();
 };
 
-const getChat = (check) => {
-	if(check == 0){
-		participants();
-		check = 1;
-	}else{
-		chat();
-		check = 0;
-	}
-}
+var a = document.getElementById("membercontainer");
+		//adds members present in the meet to the membercontainer after emptying existing members div
+		const showmembers = () => {
+			while (a.firstChild) {
+				a.removeChild(a.lastChild);
+			}
+			for (let i = 0; i < usernames.length; i++) {
+				let y = document.createElement("div");
+				b.innerHTML = usernames[i];
+				a.append(b);
+			}
+};	

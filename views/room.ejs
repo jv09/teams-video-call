@@ -48,42 +48,47 @@
 					<div id="video-grid"></div>
 				</div>
 				<div class="main__controls">
-					<div class="main__controls__block">
-						<div class="main__controls__button" id="mic-btn">
-							<!-- <span id="mic-icon" class="material-icons-outlined" style="font-size:15px">mic</span> -->
-							<span id="mic-icon" class="material-icons">mic</span>
+						
+						<div class="main__controls__block">
+							<div class="main__controls__button" id="mic_btn">
 
-							<!-- <span>Mute</span> -->
-						</div>
-						<div id="video-btn" class="main__controls__button">
-							<span id="video-icon" class="material-icons">videocam</span>
+								<span id="mic_icon" class="material-icons">mic</span>
 
-							<!-- <span id="setvideo">Stop Video</span> -->
+							</div>
+						<div id="video_btn" class="main__controls__button">
+							<span id="video_icon" class="material-icons">videocam</span>
+
 						</div>
-						<div class="main__controls__button" id="screen-share-btn">
-							<span class="material-icons" id="screen-share-icon"
+						<div class="main__controls__button" id="screen_share_btn">
+							<span class="material-icons" id="screen_share_icon"
 								>screen_share</span>
 
-							<!-- <span id="screen-share">Screen Share</span> -->
 						</div>
 					</div>
 					<div class="main__controls__block">
-							<div class="main__controls__button" onclick=" getChat(0)">
-								<span id="participants-btn" class="material-icons">group</span>
-							</div>
-							<div class="main__controls__button" onclick=" getChat(1)">
-								<span id="chat-btn" class="material-icons">chat_bubble</span>
+							<div class="main__controls__button" onclick=" chat()">
+								<span id="chat_btn" class="material-icons">chat_bubble</span>
 							</div>
 					</div>
+
+					<div class="main__controls__block_1">
+						<div onclick = "copyme()" class="main__controls__button_1">
+							<i class="fas fa-clipboard"></i>
+							<span id="copyme">Meet Link</span>
+						</div>
+					</div>
+
+					
 
 					<div class="main__controls__block">
 							<div
 								class="main__controls__button"
 								id="exit-btn"
-								style="background-color: #ea4335"
+								style="background-color: #961f14"
 							>
 								<span class="material-icons">call_end</span>
 							</div>
+
 					</div>
 			
 		</div>
@@ -94,18 +99,7 @@
 						<p>Chat</p>
 					</div>
 				</div>
-				<!-- <div id="main__chat__window__1">
-					<div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-						<a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-						  <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-						  <span class="fs-5 fw-semibold">Chat</span>
-						</a>
-						<div class="list-group list-group-flush border-bottom scrollarea">
-						</div>
-					</div>	
-	
-				</div>
-				 -->
+		
 				<div class="main__message__container">
 					<input
 						id="chat_message"
@@ -123,16 +117,10 @@
 					</div>
 				</div>
 			</div>
-			
-			<div id="main__right__2">
-				<div id="main__chat__window">
-					<div class="main__header">
-						<p>Participants</p>
-					</div>
-				</div>
+		
 
-			</div>
-		</div>
+			
+</div>
 	<script src="/bootstrap.bundle.min.js"></script>
 
 	<script src="/sidebars.js"></script>
@@ -169,12 +157,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		$("#mic-btn").prop("disabled", true);
-		$("#video-btn").prop("disabled", true);
-		$("#screen-share-btn").prop("disabled", true);
-		$("#exit-btn").prop("disabled", true);
+		$("#mic_btn").prop("disabled", true);
+		$("#video_btn").prop("disabled", true);
+		$("#screen_share_btn").prop("disabled", true);
+		$("#exit_btn").prop("disabled", true);
 	</script>
-	<script src="/ui.js"></script>
+	<script src="/uicontroller.js"></script>
 	<script src="/script.js" defer></script>
 	<!-- <link rel="stylesheet" type="text/css" href="/style.css" /> -->
 </html>

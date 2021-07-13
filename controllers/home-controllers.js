@@ -45,6 +45,7 @@ module.exports.home = async function(req, res){
         return res.render('home', {
             title: "Codeial | Home",
             teams:  teams,
+            username: req.user.username
         });
 
     }catch(err){

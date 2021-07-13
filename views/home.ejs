@@ -9,9 +9,38 @@
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.84.0">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
-        <!-- Bootstrap core CSS -->
     <link href="/bootstrap.min.css" rel="stylesheet">
+    <link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+			integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+	/>
+    <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+    />
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+    ></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+    ></script>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"
+    ></script>    
     <style>
+         body 
+         {padding: 0; margin: 0;}
         .bd-placeholder-img {
           font-size: 1.125rem;
           text-anchor: middle;
@@ -26,67 +55,144 @@
           }
         }
       </style>
+      <script>
+        var username = "<%=username%>";
+      </script>
     <!-- Custom styles for this template -->
-    <link href="/sidebars.css" rel="stylesheet">  
+    <link href="/sidebars.css" rel="stylesheet">
+    <link rel="stylesheet" href="/home.css">
+    <link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /><link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" /></head>
     <title>Document</title>
 </head>
 <body>
-    <div class="main">
-        <div class="main__left__home">
-            <h1 id="head1">Welcome To Teams</h1>
-            <div class="left"> 
-                <div class="main__left_1">
-                    <h2>Create A Team</h2>
-                    <form action="/home" id="new-post-form" method="POST">
-                        Room Name
-                        <br>
-                        <input type="text" name="name" placeholder="Your Name" required>
-                        <br>
-                        Password
-                        <br>
-                        <input type="password" name="password"  required>
-                        <br>
-                        Confirm Password
-                        <br>
-                        <input type="password" name="confirm_password"  required>
-                        <br>
-                        <br>
-                        <input type="submit" value="Create Team">
-                        <br>
-                    </form>
-                </div>
-                <div class="main__left_2">
-                    <h2>Join A Team</h2>
-                    <form action="/join" id="new-post" method="POST">
-                        Team Id
-                        <br>
-                        <input type="text" name="name" placeholder="Id" required>
-                        <br>
-                        Password
-                        <br>
-                        <input type="password" name="password"  required>
-                        <br>
-                        <br>
-                        <input type="submit" value="Join Team">
-                    </form>
-                    <br><br>
-                </div>
-            </div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #101172"	>
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarTogglerDemo03"
+        aria-controls="navbarTogglerDemo03"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">Teams</a>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="width: 80%; justify-content: center;">
+            <li class="nav-item active" class="nav-item active" style="width: 60%;margin-right: 2%">
+
+            </li>
+            
+        </ul>
+                <a href="/profile" class="navbar-brand">
+                  <%=username%>
+                </a>
+                <a href="/leave" class="navbar-brand">Sign Out</a>
+         
+</nav>
+<div class="maincontainer">
+        <div class="grp-window">
+        <div class="grp-window-header">
+        <div  class="teams"></div>
+        <div class="join-create">
+            <a href="#create" class="nav-link" data-toggle="modal" style="display:flex;width:130px;justify-content: space-evenly;">
+            <span class="material-icons">add</span>Create</a>
+            <a href="#join" class="nav-link" data-toggle="modal" style="display:flex;width:130px;justify-content: space-evenly;">
+                <span class="material-icons">add</span>Join</a>
         </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="create">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content form-wrapper">
+            <div class="close-box" data-dismiss="modal">
+              <i class="fa fa-times fa-2x"></i>
+            </div>
+            <div class="container-fluid mt-5">
+              <form action="/home" method="POST" id="RegisterationForm">
+                <div class="form-group text-center pb-2">
+                  <h4>Create New Team</h4>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col">
+                    <label for="name">Team Name</label>
+                    <input type="text" id="name" name = "name" class="form-control" placeholder="" required>
+                  </div>
+                </div>
+                <div class="form-row mb-1">
+                  <div class="form-group col">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name = "password" class="form-control" placeholder="*******************" required>
+                   
+                  </div>
+                  <div class="form-group col">
+                    <label for="password_confirmation">Confirm Password</label>
+                    <input type="password" id="password_confirmation" name = "confirm_password" class="form-control" placeholder="*******************" required>
+                  </div>
+                </div>
+    
+                <div class="form-group">
+                  <button class="btn btn-info form-control">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="join">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content form-wrapper">
+            <div class="close-box" data-dismiss="modal">
+              <i class="fa fa-times fa-2x"></i>
+            </div>
+            <div class="container-fluid mt-5">
+              <form action="/join" method="POST" id="LoginForm">
+                <div class="form-group text-center">
+                  <h6>Enter Room credentials</h6>
+                </div>
+                <div class="form-group" style="position: relative;">
+                  <label for="id">Room Id</label>
+                  <input type="text"  class="form-control mb-1" name = "name" placeholder="Id" required>
+                  
+                  
+                  
+                </div>
+                <div class="form-group pb-3" style="position: relative;">
+                  <label for="l_password">Password</label>
+                  <input type="password" id="password" name="password" class="form-control mb-1" placeholder="*******************" required>
+                </div>
+                <div class="form-group pt-2">
+                  <button class="btn btn-info form-control">Join</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+
+       
 
 
-<div>
     <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
         <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-          <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-          <span class="fs-5 fw-semibold">Your Teams</span>
+          <svg class="bi me-2" width="0" height="24"><use xlink:href="#bootstrap"/></svg>
+          <span class="fs-0 fw-semibold">Your Teams</span>
         </a>
-        <div class="list-group list-group-flush border-bottom scrollarea">
-    <!-- <h3 class="main__header">Your Teams</h3> -->
-<!-- <div class="Teams-list"> -->
-    <!-- <ul id="Teams"> -->
-        
-       
+        <div class="list-group list-group-flush border-bottom scrollarea">       
             
             <% for (team of teams){%>
                 <% if(team == null) {%>
@@ -99,7 +205,7 @@
                 {%>
                 <a href="<%=team._id %>/home" class="list-group-item list-group-item-action py-3 lh-tight">
                     <div class="d-flex w-100 align-items-center justify-content-between">
-                    <strong class="mb-1"> <%= team.name %> </strong>
+                    <strong class="mb-3"> <%= team.name %> </strong>
                     <!-- <small class="text-muted">Mon</small> -->
                     </div>
                     <!-- <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div> -->
@@ -107,12 +213,7 @@
                 <%} %>
             
             <%} %>
-       
-        
-            
-           
-    <!-- </ul> -->
-<!-- </div> -->
+
 </div>
 </div>
 </div>

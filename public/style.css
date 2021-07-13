@@ -34,7 +34,7 @@ body {
 } */
 
 .main__videos {
-	background-color:#1c1e20;
+	background-color:#222324;
 	display: flex;
 	flex-direction: column;
 	height: 92%;
@@ -42,35 +42,34 @@ body {
 	align-items: center;
 }
 
-.main__controls {
+ .main__controls {
 	overflow: hidden;
 	/* height:fit-content; */
-	display: flex;
-	background-color: #242324;
+	 display: flex;
+	background-color: #0f0e0f;
 	color:whitesmoke;
 	min-height: fit-content;
-	height: 8%;
-	justify-content: center;	
-}
+	height: 8%;	
+	justify-content: space-between;
+}  
 
 .material-icons{
-	font-size: 33px;
+	font-size: 0px;
 }
 
 .main__controls__block {
 	display: flex;
-	/* background-color: #5f6368; */
+	
 	align-items: center;
 }
 
-.main__controls__button {
+ .main__controls__button {
 	display: flex;
    
 	font-size: 34px;
 	justify-content: center;
 	align-items: center;
 	padding: 0px 10px;
-	/* width: 80px; */
 	min-width: fit-content;
 	height: 70%;
 	width:50%;
@@ -79,7 +78,7 @@ body {
 	background:black;
 		margin:0 10px;
 
-}
+} 
 
 
 .leave-meeting {
@@ -95,14 +94,14 @@ background-color:#2f2e31 ;
 	width: 20%;
 	display: none;
 	flex-direction: column;
-	background-color: #242324;
+	background-color: #0f0e0f;
 }
 
 #main__right__2{
 	width: 20%;
 	display: none;
 	flex-direction: column;
-	background-color: #242324;
+	background-color: #0f0e0f;
 }
 
 .main__right{
@@ -110,7 +109,7 @@ background-color:#2f2e31 ;
 	display: flex;
 	flex: 0.8;
 	flex-direction: column;
-	background-color: #242324;
+	background-color: #0f0e0f;
 }
 
 .main__left {
@@ -131,7 +130,7 @@ background-color:#2f2e31 ;
 	display: flex;
 	flex: 0.8;
 	flex-direction: column;
-	background-color: #242324;
+	background-color: #0f0e0f;
 }
 
 .main__left__home {
@@ -144,7 +143,6 @@ background-color:#2f2e31 ;
 }
 
 .main__header {
-	/* max-width: 100%; */
 	color: #f5f5f5;
 	font-size: 5vmin;
 	text-align: center;
@@ -157,9 +155,8 @@ background-color:#2f2e31 ;
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	overflow-y	: auto;
-	background-color:#242324;
-	border-radius: 15px;
+	background-color:#0f0e0f;
+	border-radius: 13px;
 
 
 }
@@ -176,8 +173,7 @@ background-color:#2f2e31 ;
 	flex-grow: 1;
 	background-color: transparent;
 	width: 60%;
-	border: none;
-	color: whitesmoke;
+	color: black;
 }
 
 #main__chat__window__room {
@@ -187,7 +183,7 @@ background-color:#2f2e31 ;
 	flex-direction: column;
 	flex-grow: 1;
 	overflow-y	: auto;
-	background-color:#242324;
+	background-color:#0f0e0f;
 	border-radius: 15px;
 
 
@@ -202,11 +198,11 @@ background-color:#2f2e31 ;
 }
 
 #chat_message__room {
-	flex-grow: 1;
+	flex-grow: 0;
 	background-color: transparent;
-	width: 60%;
+	width: 30%;
 	border: none;
-	color: whitesmoke;
+	color: #0f0e0f;
 }
 
 .message {
@@ -259,15 +255,15 @@ video {
 background-color: #ea4335
 }
 #main__chat__window::-webkit-scrollbar {
-  width: 8px;               /* width of the entire scrollbar */
+  width: 9px;             
 }
 
 
 
 #main__chat__window::-webkit-scrollbar-thumb {
-  background-color:#5f6368;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
-  border: 3px solid;  /* creates padding around scroll thumb */
+  background-color:#999da1;    
+  border-radius: 20px;       
+  border: 3px solid;  
 }
 
 .main__left_1 {
@@ -275,7 +271,7 @@ background-color: #ea4335
 	flex: 0.5;
 	display: flex;
 	flex-direction: column;
-	color: #D2D2D2;
+	color: #e9e1e1;
 	 background-color: black;
   }
   
@@ -284,12 +280,12 @@ background-color: #ea4335
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	color: #D2D2D2;
+	color: #e9e1e1;
 	 background-color:black;
   }
 
   #head1{
-	color: #D2D2D2;
+	color: #e9e1e1;
 	text-align: center;
 	background-color: black;
   }
@@ -299,3 +295,38 @@ background-color: #ea4335
 	display: flex;
 	padding: 50px;
   }
+
+  /* .main__controls {
+	display: flex;
+	background-color: #1C1E20;
+	color: #D2D2D2;
+	padding: 5px;
+	justify-content: space-between ;
+}*/
+
+.main__controls__block_1 {
+   display: flex;  
+}
+
+.main__controls__button_1 {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 8px 10px;
+	min-width: 80px;
+	cursor: pointer;
+} 
+
+.main__controls__button i {
+	font-size: 24px;
+}
+
+.leave-meeting {
+	color: #EB534B;
+}
+
+.main__controls__button:hover {
+   background-color: #343434;
+   border-radius: 5px; 
+}

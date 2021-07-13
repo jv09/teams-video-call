@@ -3,7 +3,6 @@ const{ v4: uuidV4 } = require('uuid');
 const passport = require('passport');
 const homeController = require('../controllers/home-controllers');
 const passportSetup = require('../config/passport-setup');
-//const Post = require('../models/post');
 const User = require('../models/user');
 const Room = require('../models/room');
 const {RtcTokenBuilder, RtmTokenBuilder, RtcRole, RtmRole} = require('agora-access-token');
@@ -20,6 +19,19 @@ router.get('/redirect', passport.authenticate('google'), (req, res)=> {
 router.get('/home',  homeController.home);
 
 router.post('/home', homeController.isAuthenticated, homeController.create);
+
+router.get('/profile', homeController.isAuthenticated, async(req, res) => {
+  let teams = [];
+  for(rooms of req.user.rooms)
+  {
+     let team = await Room.findById(rooms);
+     console.log(team);
+       teams.push( team );
+  }
+
+
+  res.render('profile', {username: req.user.username, email: req.user.email, teams: teams})
+})
 
 router.post('/join', homeController.isAuthenticated, homeController.join);
 
@@ -110,6 +122,84 @@ router.get('/:room', async(req, res) => {
     }else{
         res.redirect('/');
     }  
+})
+
+// router.get('/:roomId/leave', async(req, res) => {  
+ 
+//   try{
+//     var rooms=[];
+//     var users=[];
+//     userref = req.user.id;
+//     console.log(userref);
+    
+//     for await (const doc of Room.find()) {
+//       rooms.push(doc); // Push documents one at a time
+//     }
+
+//     var roomsuser = [];
+
+//     const check = () => {
+//       for(let i=0; i<rooms.length; i++){
+//         if(rooms[i].users.includes(userref)){
+//            roomsuser = rooms[i];
+//         }
+//       }
+//     }
+
+//     check();
+
+//     var rid = roomsuser._id;
+//     var userids = [];
+//     userids = roomsuser.users;
+  
+//     for(let j = 0; j<userids.length; j++ ){
+//       if(userids[j] == userref){
+//         userids.splice(j,1);
+//       }
+//     }
+
+//     room = Room.findByIdAndUpdate({rid},{users: userids});
+
+//     for await (const doc of User.find()) {
+//       users.push(doc); // Push documents one at a time
+//     }
+
+
+//     var usersroom=[];
+
+//     const checku = () => {
+//       for(let i=0; i<users.length; i++){
+//         if(users[i].rooms.includes(rid)){
+//            usersroom = users[i];
+//         }
+//       }
+//     }
+
+//     checku();
+
+//     var roomids = [];
+//     roomids = usersroom.rooms;
+  
+//     for(let j = 0; j<roomids.length; j++ ){
+//       if(roomids[j] == rid){
+//         roomids.splice(j,1);
+//       }
+//     }
+
+//     room = Room.findByIdAndUpdate({id: req.user.id},{rooms: roomids});
+    
+//     res.redirect('/home')
+    
+//   }
+//   catch(err){
+//     console.log(err);
+//   }
+// })
+
+router.get("/logout", (req, res) => {
+  req.session = null;
+  req.logout();
+  res.redirect('/');
 })
 
 

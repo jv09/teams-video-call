@@ -2,7 +2,7 @@
 
 function reply_click(clicked_id) {
     let text =document.getElementById("text");
-    var url ="http://localhost:3030/"+text.value+"/home";
+    var url ="http://localhost:3000/"+text.value+"/home";
     window.open(url);
 }
 

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script2.js" defer></script>
+    <link rel="stylesheet" href="/style.css">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+			integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+	/>
+    <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+    />
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+    ></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+    ></script>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"
+    ></script>    
+    <style>
+         body 
+         {padding: 0; margin: 0;}
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+      </style>
+    <!-- Custom styles for this template -->
+    <link href="/sidebars.css" rel="stylesheet">
+    <link rel="stylesheet" href="/home.css">
+    <link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /><link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" /></head>
+    <title>Document</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #212366"	>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-toggle="collapse"
+				data-target="#navbarTogglerDemo03"
+				aria-controls="navbarTogglerDemo03"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand" href="/room/">Teams</a>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="width: 80%; justify-content: center;">
+					<li class="nav-item active" class="nav-item active" style="width: 60%;margin-right: 2%">
+
+					</li>
+					
+				</ul>
+				<form class="form-inline my-2 my-lg-0" style="width: 20%;">
+					<ul
+						class="navbar-nav mr-auto mt-2 mt-lg-0"
+						style="width:100%;justify-content:flex-end;"
+                    >
+                    <div class="dropdown">
+						<li class="navbar-brand">
+						  <%=username%>"
+						</li>
+							<div class="dropdown-content">
+							<a  href="/profile/" style="display: flex;padding-top: 5px;"  ><span class="material-icons">
+                            account_box
+                            </span>Profile</a>
+							<a href="" style="display: flex;padding-top: 5px;" >
+                            <span class="material-icons">exit_to_app</span>
+                            Sign Out
+                        </a>
+						</div>
+						</div>
+					
+					</ul>
+				</form>
+					
+			</div>
+		</nav>
+
+        <div class="maincontainer">
+
+       
+            <div class="chat-show">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Username
+                        </div>
+                        <div class="col-sm-6 "><%=username%></div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Email
+                        </div>
+                        <div class="col-sm-6 "><%=email%></div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Teams
+                        </div>
+                        <div class="col-sm-6 ">
+                            <% for (team of teams){%>
+                            <% if(team == null) {%>
+                                <div class="d-flex w-100 align-items-center justify-content-between">
+                                
+                                <!-- <small class="text-muted">Mon</small> -->
+                                </div>
+                                <!-- <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div> -->
+                            <%} else
+                            {%>
+                                <div class="col-sm-6 "><%= team.name %></div>
+                            <%} %>
+        
+                            <%} %>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>   
+    </div>
+</div>
+
+
+<script src="/bootstrap.bundle.min.js"></script>
+
+<script src="/sidebars.js"></script>
+
+</body>
+</html>
