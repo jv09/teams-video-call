@@ -93,7 +93,7 @@ client.on("mute-audio", function (evt) {
 client.on("unmute-audio", function (evt) {
 	setVisibility("#" + evt.uid + "_mute", false);
 });
-S
+
 client.on("mute-video", function (evt) {
 	var remoteId = evt.uid;
 	
