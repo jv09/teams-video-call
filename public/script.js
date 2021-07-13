@@ -71,22 +71,20 @@ client.on("stream-added", function (evt) {
 client.on("stream-subscribed", function (evt) {
 	var remoteStream = evt.stream;
 	var remoteId = remoteStream.getId();
-	// remoteStreams[remoteId] = remoteStream;
 	console.log("Subscribe remote stream successfully: " + remoteId);
 
 	addRemoteStreamMiniView(remoteStream);
 });
 
-// remove the remote-container when a user leaves the channel
+
 client.on("peer-leave", function (evt) {
-	var streamId = evt.stream.getId(); //get stream id
+	var streamId = evt.stream.getId(); 
 	
 	var remoteContainerID = "#" + streamId + "_container";
-	$(remoteContainerID).empty().remove(); //
+	$(remoteContainerID).empty().remove(); 
 	Dish();
 });
 
-// show mute icon whenever a remote has muted their mic
 client.on("mute-audio", function (evt) {
 	document.getElementById(evt.uid + "_mute").style.backgroundColor = "#cc3898";
 	setVisibility("#" + evt.uid + "_mute", true);
@@ -95,14 +93,13 @@ client.on("mute-audio", function (evt) {
 client.on("unmute-audio", function (evt) {
 	setVisibility("#" + evt.uid + "_mute", false);
 });
-
-// show user icon whenever a remote has disabled their video
+S
 client.on("mute-video", function (evt) {
 	var remoteId = evt.uid;
 	
-	// if the main user stops their video select a random user from the list
+	
 	if (remoteId != mainStreamId) {
-		// if not the main video then show the user icon
+		
 		setVisibility("#" + remoteId + "_no-video", true);
 	}
 });
