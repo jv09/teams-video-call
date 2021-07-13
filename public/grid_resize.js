@@ -1,31 +1,30 @@
-function Area(Increment, Count, Width, Height, Margin = 10) {
+function A(I, C, W, H, M = 10) {
 	let i = (w = 0);
-	let h = Increment * 0.75 + Margin * 1.2;
-	while (i < Count) {
-		if (w + Increment > Width) {
+	let h = I * 0.75 + M * 1.2;
+	while (i < C) {
+		if (w + I > W) {
 			w = 0;
-			h = h + Increment * 0.75 + Margin * 2;
+			h = h + I * 0.75 + M * 2;
 		}
-		w = w + Increment + Margin * 2;
+		w = w + I + M * 2;
 		i++;
 	}
-	if (h > Height) return false;
-	else return Increment;
+	if (h > H) return false;
+	else return I;
 }
-// Dish:
 function Dish() {
-	// variables:
-	let Margin = 2;
-	let Scenary = document.getElementById("video-grid");
-	let Width = Scenary.offsetWidth - Margin * 0.8;
-	let Height = Scenary.offsetHeight - Margin * 0.8;
+
+	let M = 2;
+	let Scenary = document.getElementById("VG");
+	let W = Scenary.offsetWidth - M * 0.8;
+	let H = Scenary.offsetHeight - M * 0.8;
 	let Cameras = document.getElementsByClassName("user-container");
 	let max = 0;
 
 	// loop (i recommend you optimize this)
 	let i = 1;
 	while (i < 5000) {
-		let w = Area(i, Cameras.length, Width, Height, Margin);
+		let w = A(i, Cameras.length, W, H, M);
 		if (w === false) {
 			max = i - 1;
 			break;
@@ -33,22 +32,21 @@ function Dish() {
 		i++;
 	}
 
-	// set styles
-	max = max - Margin * 1.2;
-	setWidth(max, Margin);
+	
+	max = max - M * 1.2;
+	sw(max, M);
 }
 
-// Set Width and Margin
-function setWidth(width, margin) {
+
+function sw(W, M) {
 	let Cameras = document.getElementsByClassName("user-video");
 	for (var s = 0; s < Cameras.length; s++) {
-		Cameras[s].style.width = width + "px";
-		Cameras[s].style.margin = margin + "px";
-		Cameras[s].style.height = width * 0.75 + "px";
+		Cameras[s].style.width = W + "px";
+		Cameras[s].style.margin = M + "px";
+		Cameras[s].style.height = W * 0.75 + "px";
 	}
 }
 
-// Load and Resize Event
 window.addEventListener(
 	"load",
 	function () {
@@ -68,14 +66,14 @@ window.addEventListener(
 	false
 );
 
-const chat = () => {
+const gchatg = () => {
 	
 	var a = document.getElementById("main__right__1");
 	var b = document.getElementById("main__left");
 	
 	if(a.style.display === "none" || b.style.width == "100%"){
 		a.style.display = "flex";
-		 document.getElementById("chat_message").focus();
+	
 		b.style.width = "80%";
 	} 
 	else {
@@ -85,15 +83,3 @@ const chat = () => {
 	Dish();
 };
 
-var a = document.getElementById("membercontainer");
-		//adds members present in the meet to the membercontainer after emptying existing members div
-		const showmembers = () => {
-			while (a.firstChild) {
-				a.removeChild(a.lastChild);
-			}
-			for (let i = 0; i < usernames.length; i++) {
-				let y = document.createElement("div");
-				b.innerHTML = usernames[i];
-				a.append(b);
-			}
-};	

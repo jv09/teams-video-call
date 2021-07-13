@@ -1,15 +1,15 @@
 const socket = io("/");
-const messages = document.getElementById("chat-show");
+const MC = document.getElementById("CS");
 const chat_value = document.getElementById("chat_message__room");
 
-socket.emit('join-room-home', roomId, username);
+socket.emit('JRH', roomId, username);
 
 socket.on("createMessage", (mes, username) => {
 	var timestr = new Date();
-	show(mes, username, timestr);
+	rendermessage(mes, username, timestr);
 });
 
-var stringToHTML = function (str) {
+var STH = function (str) {
 	var parser = new DOMParser();
 
 	str = String(str);
@@ -19,69 +19,68 @@ var stringToHTML = function (str) {
 	return doc.body.innerHTML;
 };
 
-const message = () => {
+const chatrender = () => {
 
 	socket.emit("message", chat_value.value, username);
 	 chat_value.value = '';
 	 document.getElementById("chat_message__room").focus();
 };
-const show = (mes, username, timestr) => {
+const rendermessage = (mes, username, timestr) => {
 
-	card = document.createElement("div");
-	card.className = "card";
-	card.style.marginBottom = "0.5%";
+	box = document.createElement("div");
+	box.className = "card";
+	box.style.marginBottom = "0.5%";
 	
-	cardbody = document.createElement("div");
-	cardbody.className = "card-body";
-	cardtitle = document.createElement("h5");
-	cardtitle.className = "card-title";
-	cardtitle.innerHTML = username;
-	cardtitle.style.fontSize = "15px";
+	boxB = document.createElement("div");
+	boxB.className = "card-body";
+	boxT = document.createElement("h5");
+	boxT.className = "card-title";
+	boxT.innerHTML = username;
+	boxT.style.fontSize = "15px";
 
-	cardsubtitle = document.createElement("h6");
-	cardsubtitle.style.fontSize = "12px";
-	cardsubtitle.className = "card-subtitle mb-2 text-muted";
-	cardsubtitle.innerHTML = timestr;
+	boxST = document.createElement("h6");
+	boxST.style.fontSize = "12px";
+	boxST.className = "card-subtitle mb-2 text-muted";
+	boxST.innerHTML = timestr;
 
-	cardtext = document.createElement("div");
-	cardtext.innerHTML = mes;
-	cardtext.style.fontSize = "12px";
+	boxtext = document.createElement("div");
+	boxtext.innerHTML = mes;
+	boxtext.style.fontSize = "12px";
    
-	cardbody.appendChild(cardtitle);
-	cardbody.appendChild(cardsubtitle);
-	cardbody.appendChild(cardtext);
-	card.appendChild(cardbody);
-	messages.append(card);
-	messages.scrollTop = messages.scrollHeight;
+	boxB.appendChild(boxT);
+	boxB.appendChild(boxST);
+	boxB.appendChild(boxtext);
+	box.appendChild(boxB);
+	MC.append(box);
+	MC.scrollTop = MC.scrollHeight;
 };
 
 $(document).keydown((e) => {
     var msg = document.getElementById("chat_message__room");
     var isFocused = document.activeElement === msg;
     if (e.which == 13 && msg.value.length !== 0 && isFocused) {
-          //console.log(msg.val());
-          message();
+         
+          chatrender();
       }
   })
 
 
-  const schedulemeet =() => {
-	var name = document.getElementById("meetname").value;
-	var date = document.getElementById("meetdate").value;
-	var time = document.getElementById("meettime").value;
+  const SM =() => {
+	var MN = document.getElementById("MN").value;
+	var MD = document.getElementById("MD").value;
+	var MT = document.getElementById("MT").value;
 
-	var msg = `<br><b>Meet Details-<br>
+	var msg = `<br>Meet Details-<br>
 				Meet scheduled by: ${username}<br> 
-				Meet name: ${name}<br>
-				Meet start date: ${date}<br>
-				Meet start time: ${time}<br>
-				</b><br>
-				To enter meet room 
-				<button class="btn btn-primary">
+				Meet name: ${MN}<br>
+				Meet start date: ${MD}<br>
+				Meet start time: ${MT}<br>
+				<br>
+				enter team room 
+				<button class="btn btn-secondary">
 				<a href='./'   type="button"  style="color:white; text-dexoration: none">click here</a></button>`;
-		console.log(msg)
-		mes =stringToHTML(msg);
-		console.log(mes);
-    socket.emit("message", username, mes);
+
+
+    socket.emit("message", username, STH(msg));
 
   }

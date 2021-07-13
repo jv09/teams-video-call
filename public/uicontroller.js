@@ -90,6 +90,6 @@ $(document).keydown((e) => {
   var isFocused = document.activeElement === msg;
   if (e.which == 13 && msg.value.length !== 0 && isFocused) {
         //console.log(msg.val());
-        message();
+        chatrender();
     }
 })

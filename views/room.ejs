@@ -27,37 +27,37 @@
 		<title>Video Call</title>
 	</head>
 	<body>
-		<div class="main">
+		<div class="MMN">
 			<div id="main__left" style="width: 100%">
 				<div class="main__videos_1">
-					<div id="video-grid"></div>
+					<div id="VG"></div>
 				</div>
-				<div class="main__controls">
+				<div class="MC">
 						
-						<div class="main__controls__block">
-							<div class="main__controls__button" id="mic_btn">
+						<div class="MCB">
+							<div class="MC_btn" id="mic_btn">
 
 								<span id="mic_icon" class="material-icons">mic</span>
 
 							</div>
-						<div id="video_btn" class="main__controls__button">
+						<div id="video_btn" class="MC_btn">
 							<span id="video_icon" class="material-icons">videocam</span>
 
 						</div>
-						<div class="main__controls__button" id="screen_share_btn">
+						<div class="MC_btn" id="screen_share_btn">
 							<span class="material-icons" id="screen_share_icon"
 								>screen_share</span>
 
 						</div>
 					</div>
-					<div class="main__controls__block">
-							<div class="main__controls__button" onclick=" chat()">
+					<div class="MCB">
+							<div class="MC_btn" onclick="gchatg()">
 								<span id="chat_btn" class="material-icons">chat_bubble</span>
 							</div>
 					</div>
 
-					<div class="main__controls__block_1">
-						<div onclick = "copyme()" class="main__controls__button_1">
+					<div class="MCB_1">
+						<div onclick = "copyme()" class="MC_btn_1">
 							<i class="fas fa-clipboard"></i>
 							<span id="copyme">Meet Link</span>
 						</div>
@@ -65,9 +65,9 @@
 
 					
 
-					<div class="main__controls__block">
+					<div class="MCB">
 							<div
-								class="main__controls__button"
+								class="MC_btn"
 								id="exit_btn"
 								style="background-color: #961f14"
 							>
@@ -80,22 +80,22 @@
 		</div>
 			<div id="main__right__1">
 				<div id="main__chat__window_1">
-					<div class="main__header">
+					<div class="MH">
 						<p>Chat</p>
 					</div>
 				</div>
 		
-				<div class="main__message__container">
+				<div>
 					<input
 						id="text_message"
 						type="text"
 						placeholder="Type message here..."
 					/>
-					<div class="send">
+					<div class="S">
 						<span
 							class="material-icons"
-							class="send"
-							onclick="message()"
+							class="S"
+							onclick="chatrender()"
 							style="color: whitesmoke"
 							>send</span
 						>
