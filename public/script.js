@@ -352,7 +352,7 @@ const show = (mes, username) => {
 };
 
 const redirec = () =>{
-	document.location.href = './';
+	document.location.href = './home';
 }
 
 socket.on('update', function (users){
